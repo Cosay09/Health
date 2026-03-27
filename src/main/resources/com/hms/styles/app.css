@@ -1,0 +1,65 @@
+/* Root Background */
+.login-root {
+    -fx-background-color: linear-gradient(to bottom, #e8f0ff, #ffffff);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0.2, 0, 5);
+}
+
+/* Title */
+.title-label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2a4d9b;
+}
+
+/* Subtitle */
+.subtitle-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6c757d;
+}
+
+/* Input Fields */
+.text-field,
+.password-field {
+    -fx-pref-height: 36px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #d0d7e2;
+    -fx-padding: 0 10 0 10;
+    -fx-font-size: 13px;
+}
+
+/* Focus effect */
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #4a90e2;
+    -fx-effect: dropshadow(gaussian, rgba(74,144,226,0.3), 6, 0.3, 0, 2);
+}
+
+/* Button */
+.login-button {
+    -fx-background-color: #2a4d9b;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+/* Button hover */
+.login-button:hover {
+    -fx-background-color: #1f3d7a;
+}
+
+/* Button pressed */
+.login-button:pressed {
+    -fx-background-color: #162b5c;
+}
+
+/* Error label */
+.error-label {
+    -fx-text-fill: #d9534f;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
