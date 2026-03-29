@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hms.controller.DashboardController"
+            prefWidth="900"
+            prefHeight="600">
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+            <padding>
+                <Insets top="12" right="20" bottom="12" left="20"/>
+            </padding>
+            <Label text="HealthPlus+"
+                   styleClass="app-title"
+                   HBox.hgrow="ALWAYS"/>
+            <Label fx:id="userInfoLabel" styleClass="user-info"/>
+            <Button text="Logout"
+                    onAction="#handleLogout"
+                    styleClass="logout-btn"/>
+        </HBox>
+    </top>
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="6" prefWidth="200">
+            <padding>
+                <Insets top="20" right="10" bottom="20" left="10"/>
+            </padding>
+
+            <Label text="MENU" styleClass="sidebar-section-label"/>
+
+            <Button fx:id="btnDashboard"
+                    text="Dashboard"
+                    maxWidth="Infinity"
+                    onAction="#loadHome"
+                    styleClass="nav-btn"/>
+            <Button fx:id="btnPatients"
+                    text="Patients"
+                    maxWidth="Infinity"
+                    onAction="#loadPatients"
+                    styleClass="nav-btn"/>
+            <Button fx:id="btnDoctors"
+                    text="Doctors"
+                    maxWidth="Infinity"
+                    onAction="#loadDoctors"
+                    styleClass="nav-btn"/>
+            <Button fx:id="btnAppointments"
+                    text="Appointments"
+                    maxWidth="Infinity"
+                    onAction="#loadAppointments"
+                    styleClass="nav-btn"/>
+            <Button fx:id="btnBilling"
+                    text="Billing"
+                    maxWidth="Infinity"
+                    onAction="#loadBilling"
+                    styleClass="nav-btn"/>
+            <Button fx:id="btnLab"
+                    text="Lab Tests"
+                    maxWidth="Infinity"
+                    onAction="#loadLab"
+                    styleClass="nav-btn"/>
+        </VBox>
+    </left>
+
+    <!-- CONTENT AREA — this is what swaps -->
+    <center>
+        <BorderPane fx:id="contentArea"/>
+    </center>
+
+</BorderPane>
