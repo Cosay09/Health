@@ -17,7 +17,7 @@ public class Main extends Application
         Scene scene = new Scene(loader.load());
 
         scene.getStylesheets().add(
-            getClass().getResource("/com/hms/styles/app.css").toExternalForm()
+                getClass().getResource("/com/hms/styles/app.css").toExternalForm()
         );
 
         primaryStage.setTitle("HMS — Login");
