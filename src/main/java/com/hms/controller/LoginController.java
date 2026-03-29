@@ -60,8 +60,14 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/com/hms/view/DashboardView.fxml")
         );
+
+        Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(
+                getClass().getResource("/com/hms/styles/app.css").toExternalForm()
+        );
+
         Stage stage = (Stage) usernameField.getScene().getWindow();
-        stage.setScene(new Scene(loader.load()));
+        stage.setScene(scene);
         stage.setTitle("HMS — Dashboard");
     }
 }
