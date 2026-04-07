@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.PrescriptionFormController"
+      spacing="16" prefWidth="560">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <Label text="New Prescription" styleClass="page-title"/>
+
+    <!-- Header fields -->
+    <GridPane hgap="12" vgap="12">
+
+        <Label text="Appointment ID"
+               GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="appointmentIdField"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"
+                   promptText="Enter appointment ID" prefWidth="200"/>
+
+        <Label text="Doctor"
+               GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+        <ComboBox fx:id="doctorCombo"
+                  GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="200"/>
+
+        <Label text="Date"
+               GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+        <DatePicker fx:id="datePicker"
+                    GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="200"/>
+
+        <Label text="Notes"
+               GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextArea fx:id="noteArea"
+                  GridPane.rowIndex="3" GridPane.columnIndex="1"
+                  prefWidth="200" prefHeight="60" wrapText="true"/>
+
+    </GridPane>
+
+    <!-- Medicine line items section -->
+    <Label text="Medicines" styleClass="page-subtitle"/>
+
+    <!-- Add medicine row -->
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <ComboBox fx:id="medicineCombo" prefWidth="200" promptText="Select medicine"/>
+        <TextField fx:id="dosageField"  prefWidth="140" promptText="Dosage (e.g. 500mg twice)"/>
+        <TextField fx:id="quantityField" prefWidth="70" promptText="Qty"/>
+        <Button text="Add" onAction="#handleAddMedicine" styleClass="btn-primary"/>
+    </HBox>
+
+    <!-- List of added medicines -->
+    <TableView fx:id="itemsTable" prefHeight="160">
+        <columns>
+            <TableColumn fx:id="colMedicine" text="Medicine" prefWidth="180"/>
+            <TableColumn fx:id="colDosage"   text="Dosage"   prefWidth="160"/>
+            <TableColumn fx:id="colQty"      text="Qty"      prefWidth="60"/>
+            <TableColumn fx:id="colRemove"   text=""         prefWidth="80"/>
+        </columns>
+    </TableView>
+
+    <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#handleCancel" styleClass="btn-secondary"/>
+        <Button text="Save Prescription" onAction="#handleSave" styleClass="btn-primary"/>
+    </HBox>
+
+</VBox>
