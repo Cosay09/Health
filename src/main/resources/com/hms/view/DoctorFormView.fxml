@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.DoctorFormController"
+      spacing="20"
+      prefWidth="400">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <Label fx:id="formTitle" styleClass="page-title"/>
+
+    <GridPane hgap="12" vgap="14">
+
+        <Label text="Full Name"
+               GridPane.rowIndex="0" GridPane.columnIndex="0"
+               styleClass="form-label"/>
+        <TextField fx:id="nameField"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"
+                   promptText="Dr. Full Name" prefWidth="220"/>
+
+        <Label text="Specialization"
+               GridPane.rowIndex="1" GridPane.columnIndex="0"
+               styleClass="form-label"/>
+        <TextField fx:id="specializationField"
+                   GridPane.rowIndex="1" GridPane.columnIndex="1"
+                   promptText="e.g. Cardiology" prefWidth="220"/>
+
+        <Label text="Phone"
+               GridPane.rowIndex="2" GridPane.columnIndex="0"
+               styleClass="form-label"/>
+        <TextField fx:id="phoneField"
+                   GridPane.rowIndex="2" GridPane.columnIndex="1"
+                   promptText="01XXXXXXXXX" prefWidth="220"/>
+
+        <Label text="Available"
+               GridPane.rowIndex="3" GridPane.columnIndex="0"
+               styleClass="form-label"/>
+        <!-- CheckBox for the boolean available field -->
+        <CheckBox fx:id="availableCheck"
+                  GridPane.rowIndex="3" GridPane.columnIndex="1"
+                  text="Currently available for appointments"
+                  selected="true"/>
+
+    </GridPane>
+
+    <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#handleCancel" styleClass="btn-secondary"/>
+        <Button text="Save"   onAction="#handleSave"   styleClass="btn-primary"/>
+    </HBox>
+
+</VBox>

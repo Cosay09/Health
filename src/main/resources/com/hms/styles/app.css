@@ -161,3 +161,128 @@
     -fx-font-weight: bold;
     -fx-text-fill: #533483;
 }
+/* =========================================
+   BUTTONS — reusable across all modules
+   ========================================= */
+
+.btn-primary {
+    -fx-background-color: #533483;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+.btn-primary:hover {
+    -fx-background-color: #3d2566;
+}
+
+.btn-secondary {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #333333;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+.btn-secondary:hover {
+    -fx-background-color: #cccccc;
+}
+
+.btn-edit {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+    -fx-background-radius: 4;
+    -fx-padding: 4 10 4 10;
+    -fx-cursor: hand;
+    -fx-font-size: 11px;
+}
+.btn-delete {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-background-radius: 4;
+    -fx-padding: 4 10 4 10;
+    -fx-cursor: hand;
+    -fx-font-size: 11px;
+}
+
+/* =========================================
+   FORM ELEMENTS
+   ========================================= */
+
+.form-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #444444;
+}
+
+/* =========================================
+   AVAILABILITY BADGES
+   ========================================= */
+
+.badge-available {
+    -fx-background-color: #e1f5ee;
+    -fx-text-fill: #0f6e56;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 4;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.badge-unavailable {
+    -fx-background-color: #fcebeb;
+    -fx-text-fill: #a32d2d;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 4;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* =========================================
+   STATUS BADGES — appointments, billing, lab
+   ========================================= */
+
+.badge-scheduled {
+    -fx-background-color: #e6f1fb;
+    -fx-text-fill: #185fa5;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 4;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.badge-completed {
+    -fx-background-color: #e1f5ee;
+    -fx-text-fill: #0f6e56;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 4;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.badge-cancelled {
+    -fx-background-color: #fcebeb;
+    -fx-text-fill: #a32d2d;
+    -fx-padding: 3 8 3 8;
+    -fx-background-radius: 4;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* Complete / cancel action buttons in tables */
+.btn-complete {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-background-radius: 4;
+    -fx-padding: 4 10 4 10;
+    -fx-cursor: hand;
+    -fx-font-size: 11px;
+}
+
+.btn-cancel-appt {
+    -fx-background-color: #888888;
+    -fx-text-fill: white;
+    -fx-background-radius: 4;
+    -fx-padding: 4 10 4 10;
+    -fx-cursor: hand;
+    -fx-font-size: 11px;
+}

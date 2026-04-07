@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.DoctorController"
+      spacing="16">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <!-- Header row -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Doctors" styleClass="page-title"/>
+        <HBox HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField"
+                   promptText="Search by name or specialization..."
+                   prefWidth="260"
+                   onKeyReleased="#handleSearch"/>
+        <Button text="+ Add Doctor"
+                onAction="#handleAdd"
+                styleClass="btn-primary"/>
+    </HBox>
+
+    <!-- Doctor table -->
+    <TableView fx:id="doctorTable"
+               VBox.vgrow="ALWAYS">
+        <placeholder>
+            <Label text="No doctors found." />
+        </placeholder>
+
+        <columns>
+            <TableColumn fx:id="colId"             text="ID"             prefWidth="50"/>
+            <TableColumn fx:id="colName"           text="Name"           prefWidth="180"/>
+            <TableColumn fx:id="colSpecialization" text="Specialization" prefWidth="160"/>
+            <TableColumn fx:id="colPhone"          text="Phone"          prefWidth="120"/>
+            <TableColumn fx:id="colAvailable"      text="Available"      prefWidth="90"/>
+            <TableColumn fx:id="colActions"        text="Actions"        prefWidth="160"/>
+        </columns>
+    </TableView>
+
+</VBox>

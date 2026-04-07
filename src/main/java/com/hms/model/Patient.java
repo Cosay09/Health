@@ -1,40 +1,53 @@
 package com.hms.model;
 
+import javafx.beans.property.*;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class Patient {
 
-    private int patientId;
-    private String name;
-    private LocalDate dateOfBirth;  // not age — remember why?
-    private String gender;
-    private String phone;
-    private String address;
+    private final IntegerProperty patientId   = new SimpleIntegerProperty();
+    private final StringProperty  name        = new SimpleStringProperty();
+    private final ObjectProperty<LocalDate> dateOfBirth = new SimpleObjectProperty<>();
+    private final StringProperty  gender      = new SimpleStringProperty();
+    private final StringProperty  phone       = new SimpleStringProperty();
+    private final StringProperty  address     = new SimpleStringProperty();
 
-    // Constructor
     public Patient(int patientId, String name, LocalDate dateOfBirth,
                    String gender, String phone, String address) {
-        this.patientId   = patientId;
-        this.name        = name;
-        this.dateOfBirth = dateOfBirth;
-        this.gender      = gender;
-        this.phone       = phone;
-        this.address     = address;
+        this.patientId.set(patientId);
+        this.name.set(name);
+        this.dateOfBirth.set(dateOfBirth);
+        this.gender.set(gender);
+        this.phone.set(phone);
+        this.address.set(address);
     }
 
-    // Calculated age — never stored, always fresh
+    // Age is always calculated fresh — never stored
     public int getAge() {
-        return Period.between(dateOfBirth, LocalDate.now()).getYears();
+        return Period.between(dateOfBirth.get(), LocalDate.now()).getYears();
     }
 
-    // Getters and setters
-    public int getPatientId()          { return patientId; }
-    public String getName()            { return name; }
-    public void setName(String name)   { this.name = name; }
-    public LocalDate getDateOfBirth()  { return dateOfBirth; }
-    public String getGender()          { return gender; }
-    public String getPhone()           { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public String getAddress()         { return address; }
+    // Property getters — TableView needs these
+    public IntegerProperty patientIdProperty()             { return patientId; }
+    public StringProperty  nameProperty()                  { return name; }
+    public ObjectProperty<LocalDate> dateOfBirthProperty() { return dateOfBirth; }
+    public StringProperty  genderProperty()                { return gender; }
+    public StringProperty  phoneProperty()                 { return phone; }
+    public StringProperty  addressProperty()               { return address; }
+
+    // Regular getters — DAO and other code needs these
+    public int       getPatientId()   { return patientId.get(); }
+    public String    getName()        { return name.get(); }
+    public LocalDate getDateOfBirth() { return dateOfBirth.get(); }
+    public String    getGender()      { return gender.get(); }
+    public String    getPhone()       { return phone.get(); }
+    public String    getAddress()     { return address.get(); }
+
+    // Setters
+    public void setName(String v)        { name.set(v); }
+    public void setGender(String v)      { gender.set(v); }
+    public void setPhone(String v)       { phone.set(v); }
+    public void setAddress(String v)     { address.set(v); }
+    public void setDateOfBirth(LocalDate v) { dateOfBirth.set(v); }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.HomeController"
+      spacing="24">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label fx:id="welcomeLabel" styleClass="page-title"/>
+    <Label text="Quick overview" styleClass="page-subtitle"/>
+
+    <!-- Summary cards row -->
+    <HBox spacing="16">
+
+        <VBox styleClass="stat-card" spacing="6">
+            <Label text="Total Patients" styleClass="stat-label"/>
+            <Label fx:id="patientCount" text="..." styleClass="stat-value"/>
+        </VBox>
+
+        <VBox styleClass="stat-card" spacing="6">
+            <Label text="Today's Appointments" styleClass="stat-label"/>
+            <Label fx:id="appointmentCount" text="..." styleClass="stat-value"/>
+        </VBox>
+
+        <VBox styleClass="stat-card" spacing="6">
+            <Label text="Pending Lab Tests" styleClass="stat-label"/>
+            <Label fx:id="labCount" text="..." styleClass="stat-value"/>
+        </VBox>
+
+    </HBox>
+
+</VBox>

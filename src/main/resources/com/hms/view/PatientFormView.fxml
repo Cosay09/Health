@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.PatientFormController"
+      spacing="20"
+      prefWidth="400">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <Label fx:id="formTitle" styleClass="page-title"/>
+
+    <!-- Form fields in a grid: label on left, input on right -->
+    <GridPane hgap="12" vgap="14">
+
+        <Label text="Full Name"      GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="nameField" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                   promptText="Enter full name" prefWidth="220"/>
+
+        <Label text="Date of Birth"       GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+        <DatePicker fx:id="dobPicker"     GridPane.rowIndex="1" GridPane.columnIndex="1"
+                    prefWidth="220" promptText="YYYY-MM-DD"/>
+
+        <Label text="Gender"              GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+        <ComboBox fx:id="genderCombo"     GridPane.rowIndex="2" GridPane.columnIndex="1"
+                  prefWidth="220" promptText="Select gender"/>
+
+        <Label text="Phone"               GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="phoneField"     GridPane.rowIndex="3" GridPane.columnIndex="1"
+                   promptText="01XXXXXXXXX"/>
+
+        <Label text="Address"             GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextArea fx:id="addressArea"     GridPane.rowIndex="4" GridPane.columnIndex="1"
+                  prefWidth="220" prefHeight="70" promptText="Optional" wrapText="true"/>
+
+    </GridPane>
+
+    <!-- Error label -->
+    <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+
+    <!-- Save / Cancel buttons -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#handleCancel" styleClass="btn-secondary"/>
+        <Button text="Save"   onAction="#handleSave"   styleClass="btn-primary"/>
+    </HBox>
+
+</VBox>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.AppointmentFormController"
+      spacing="20" prefWidth="420">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <Label fx:id="formTitle" styleClass="page-title"/>
+
+    <GridPane hgap="12" vgap="14">
+
+        <Label text="Patient"
+               GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+        <ComboBox fx:id="patientCombo"
+                  GridPane.rowIndex="0" GridPane.columnIndex="1"
+                  prefWidth="240" promptText="Select patient"/>
+
+        <Label text="Doctor"
+               GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+        <ComboBox fx:id="doctorCombo"
+                  GridPane.rowIndex="1" GridPane.columnIndex="1"
+                  prefWidth="240" promptText="Select doctor"/>
+
+        <Label text="Date"
+               GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+        <DatePicker fx:id="datePicker"
+                    GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="240"/>
+
+        <Label text="Time"
+               GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="timeField"
+                   GridPane.rowIndex="3" GridPane.columnIndex="1"
+                   promptText="HH:MM  (e.g. 09:30)" prefWidth="240"/>
+
+        <Label text="Status"
+               GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="form-label"/>
+        <ComboBox fx:id="statusCombo"
+                  GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="240"/>
+
+    </GridPane>
+
+    <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#handleCancel" styleClass="btn-secondary"/>
+        <Button text="Save"   onAction="#handleSave"   styleClass="btn-primary"/>
+    </HBox>
+
+</VBox>

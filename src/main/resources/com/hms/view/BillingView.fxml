@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.BillingController"
+      spacing="16">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Billing" styleClass="page-title"/>
+        <HBox HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField"
+                   promptText="Search by patient name..."
+                   prefWidth="240"
+                   onKeyReleased="#handleSearch"/>
+        <Button text="+ New Bill"
+                onAction="#handleAdd"
+                styleClass="btn-primary"/>
+    </HBox>
+
+    <TableView fx:id="billingTable"
+               VBox.vgrow="ALWAYS">
+        <placeholder>
+            <Label text="No bills found." />
+        </placeholder>
+
+        <columns>
+            <TableColumn fx:id="colId"          text="Bill ID"    prefWidth="70"/>
+            <TableColumn fx:id="colApptId"      text="Appt ID"    prefWidth="70"/>
+            <TableColumn fx:id="colPatient"     text="Patient"    prefWidth="160"/>
+            <TableColumn fx:id="colAmount"      text="Amount"     prefWidth="100"/>
+            <TableColumn fx:id="colStatus"      text="Status"     prefWidth="100"/>
+            <TableColumn fx:id="colActions"     text="Actions"    prefWidth="200"/>
+        </columns>
+    </TableView>
+
+</VBox>

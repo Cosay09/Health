@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.BillingFormController"
+      spacing="20" prefWidth="400">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <Label fx:id="formTitle" styleClass="page-title"/>
+
+    <GridPane hgap="12" vgap="14">
+
+        <Label text="Appointment ID"
+               GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="appointmentIdField"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"
+                   promptText="Enter appointment ID" prefWidth="220"/>
+
+        <Label text="Patient"
+               GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+        <ComboBox fx:id="patientCombo"
+                  GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="220"/>
+
+        <Label text="Total Amount (৳)"
+               GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="amountField"
+                   GridPane.rowIndex="2" GridPane.columnIndex="1"
+                   promptText="0.00" prefWidth="220"/>
+
+        <Label text="Status"
+               GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label"/>
+        <ComboBox fx:id="statusCombo"
+                  GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="220"/>
+
+    </GridPane>
+
+    <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#handleCancel" styleClass="btn-secondary"/>
+        <Button text="Save"   onAction="#handleSave"   styleClass="btn-primary"/>
+    </HBox>
+
+</VBox>

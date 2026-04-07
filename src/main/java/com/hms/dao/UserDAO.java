@@ -10,8 +10,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-    public User findByUsernameAndPassword(String username, String password)
-            throws SQLException {
+    public User findByUsernameAndPassword(String username, String password) throws SQLException {
 
         // In a real app you'd hash the password and compare hashes.
         // For now we compare directly — we'll upgrade this in Phase 5.

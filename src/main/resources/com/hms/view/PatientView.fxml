@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.PatientController"
+      spacing="16">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <!-- Header row: title + search + add button -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Patients" styleClass="page-title"/>
+
+        <!-- Spacer pushes search+button to the right -->
+        <HBox HBox.hgrow="ALWAYS"/>
+
+        <TextField fx:id="searchField"
+                   promptText="Search by name..."
+                   prefWidth="220"
+                   onKeyReleased="#handleSearch"/>
+
+        <Button text="+ Add Patient"
+                onAction="#handleAdd"
+                styleClass="btn-primary"/>
+    </HBox>
+
+    <!-- Patient table -->
+    <TableView fx:id="patientTable"
+               VBox.vgrow="ALWAYS">
+
+    <placeholder>
+        <Label text="No patients found" />
+    </placeholder>
+
+        <columns>
+            <TableColumn fx:id="colId"     text="ID"     prefWidth="50"/>
+            <TableColumn fx:id="colName"   text="Name"   prefWidth="180"/>
+            <TableColumn fx:id="colAge"    text="Age"    prefWidth="60"/>
+            <TableColumn fx:id="colGender" text="Gender" prefWidth="80"/>
+            <TableColumn fx:id="colPhone"  text="Phone"  prefWidth="130"/>
+            <TableColumn fx:id="colActions" text="Actions" prefWidth="160"/>
+        </columns>
+
+    </TableView>
+
+</VBox>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.AppointmentController"
+      spacing="16">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Appointments" styleClass="page-title"/>
+        <HBox HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField"
+                   promptText="Search by patient or doctor..."
+                   prefWidth="260"
+                   onKeyReleased="#handleSearch"/>
+        <Button text="+ New Appointment"
+                onAction="#handleAdd"
+                styleClass="btn-primary"/>
+    </HBox>
+
+    <TableView fx:id="appointmentTable"
+               VBox.vgrow="ALWAYS">
+        <placeholder>
+            <Label text="No appointments found." />
+        </placeholder>
+
+        <columns>
+            <TableColumn fx:id="colId"          text="ID"      prefWidth="45"/>
+            <TableColumn fx:id="colPatient"     text="Patient" prefWidth="150"/>
+            <TableColumn fx:id="colDoctor"      text="Doctor"  prefWidth="150"/>
+            <TableColumn fx:id="colDate"        text="Date"    prefWidth="100"/>
+            <TableColumn fx:id="colTime"        text="Time"    prefWidth="80"/>
+            <TableColumn fx:id="colStatus"      text="Status"  prefWidth="100"/>
+            <TableColumn fx:id="colActions"     text="Actions" prefWidth="210"/>
+        </columns>
+    </TableView>
+
+</VBox>
