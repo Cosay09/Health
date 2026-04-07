@@ -286,3 +286,13 @@
     -fx-cursor: hand;
     -fx-font-size: 11px;
 }
+
+/* Low stock warning banner */
+.low-stock-warning {
+    -fx-background-color: #faeeda;
+    -fx-text-fill: #854f0b;
+    -fx-padding: 6 14 6 14;
+    -fx-background-radius: 6;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
