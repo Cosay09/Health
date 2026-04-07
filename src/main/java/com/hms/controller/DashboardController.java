@@ -27,6 +27,9 @@ public class DashboardController implements Initializable {
     @FXML private Button btnAppointments;
     @FXML private Button btnBilling;
     @FXML private Button btnLab;
+    @FXML private Button btnReports;
+    @FXML private Button btnMedicine;
+    @FXML private Button btnPrescriptions;
 
     private Button activeButton;
 
@@ -55,6 +58,11 @@ public class DashboardController implements Initializable {
     @FXML private void loadAppointments() { loadView("AppointmentView.fxml", btnAppointments); }
     @FXML private void loadBilling()      { loadView("BillingView.fxml",     btnBilling); }
     @FXML private void loadLab()          { loadView("LabView.fxml",         btnLab); }
+    @FXML private void loadReports()      { loadView("ReportsView.fxml", btnReports); }
+    @FXML private void loadMedicine()     { loadView("MedicineView.fxml",      btnMedicine); }
+    @FXML private void loadPrescriptions(){ loadView("PrescriptionView.fxml",  btnPrescriptions); }
+
+
 
     // Central loader — all nav methods call this
     private void loadView(String fxmlFile, Button clickedButton) {
@@ -88,10 +96,12 @@ public class DashboardController implements Initializable {
                 btnPatients.setVisible(false);
                 btnDoctors.setVisible(false);
                 btnBilling.setVisible(false);
+                btnReports.setVisible(false);
             }
             case "Doctor" -> {
                 btnBilling.setVisible(false);
             }
+
             // Admin sees everything — no changes needed
         }
     }
