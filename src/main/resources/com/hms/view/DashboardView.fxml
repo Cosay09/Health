@@ -67,6 +67,22 @@
                     maxWidth="Infinity"
                     onAction="#loadLab"
                     styleClass="nav-btn"/>
+            <Button fx:id="btnReports"
+                    text="Reports"
+                    maxWidth="Infinity"
+                    onAction="#loadReports"
+                    styleClass="nav-btn"/>
+            <Button fx:id="btnMedicine"
+                    text="Medicine"
+                    maxWidth="Infinity"
+                    onAction="#loadMedicine"
+                    styleClass="nav-btn"/>
+
+            <Button fx:id="btnPrescriptions"
+                    text="Prescriptions"
+                    maxWidth="Infinity"
+                    onAction="#loadPrescriptions"
+                    styleClass="nav-btn"/>
         </VBox>
     </left>
 
