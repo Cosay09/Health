@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.MedicineFormController"
+      spacing="20" prefWidth="380">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <Label fx:id="formTitle" styleClass="page-title"/>
+
+    <GridPane hgap="12" vgap="14">
+
+        <Label text="Medicine Name"
+               GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="nameField"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"
+                   promptText="e.g. Paracetamol" prefWidth="200"/>
+
+        <Label text="Stock Quantity"
+               GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="stockField"
+                   GridPane.rowIndex="1" GridPane.columnIndex="1"
+                   promptText="0" prefWidth="200"/>
+
+        <Label text="Unit"
+               GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+        <ComboBox fx:id="unitCombo"
+                  GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="200"/>
+
+        <Label text="Price per unit (৳)"
+               GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="priceField"
+                   GridPane.rowIndex="3" GridPane.columnIndex="1"
+                   promptText="0.00" prefWidth="200"/>
+
+    </GridPane>
+
+    <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" onAction="#handleCancel" styleClass="btn-secondary"/>
+        <Button text="Save"   onAction="#handleSave"   styleClass="btn-primary"/>
+    </HBox>
+
+</VBox>
