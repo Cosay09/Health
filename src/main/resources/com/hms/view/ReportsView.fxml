@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.ReportsController"
+      spacing="24">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label text="Reports" styleClass="page-title"/>
+    <Label text="Generate and download PDF reports for any module."
+           styleClass="page-subtitle"/>
+
+    <!-- Report cards in a grid -->
+    <GridPane hgap="16" vgap="16">
+
+        <VBox styleClass="stat-card" spacing="8"
+              GridPane.rowIndex="0" GridPane.columnIndex="0">
+            <Label text="Appointment Report" styleClass="stat-label"/>
+            <Label text="All appointments with status" styleClass="page-subtitle"/>
+            <Button text="Generate PDF"
+                    onAction="#generateAppointmentReport"
+                    styleClass="btn-primary"/>
+        </VBox>
+
+        <VBox styleClass="stat-card" spacing="8"
+              GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <Label text="Doctor Report" styleClass="stat-label"/>
+            <Label text="All doctors and availability" styleClass="page-subtitle"/>
+            <Button text="Generate PDF"
+                    onAction="#generateDoctorReport"
+                    styleClass="btn-primary"/>
+        </VBox>
+
+        <VBox styleClass="stat-card" spacing="8"
+              GridPane.rowIndex="1" GridPane.columnIndex="0">
+            <Label text="Billing Report" styleClass="stat-label"/>
+            <Label text="All bills with totals and status" styleClass="page-subtitle"/>
+            <Button text="Generate PDF"
+                    onAction="#generateBillingReport"
+                    styleClass="btn-primary"/>
+        </VBox>
+
+        <VBox styleClass="stat-card" spacing="8"
+              GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <Label text="Lab Test Report" styleClass="stat-label"/>
+            <Label text="All tests with results" styleClass="page-subtitle"/>
+            <Button text="Generate PDF"
+                    onAction="#generateLabReport"
+                    styleClass="btn-primary"/>
+        </VBox>
+
+    </GridPane>
+
+</VBox>
