@@ -12,14 +12,15 @@ public class AppointmentDAO {
 
     // ── CREATE ───────────────────────────────────────────────
     public boolean addAppointment(Appointment a) throws SQLException {
-        String sql = "INSERT INTO appointment (patient_id, doctor_id, appointment_date, appointment_time, status) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO appointment (patient_id, doctor_id, appointment_date, appointment_time, condition_note, status) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, a.getPatientId());
             stmt.setInt(2, a.getDoctorId());
             stmt.setDate(3, Date.valueOf(a.getDate()));
             stmt.setTime(4, Time.valueOf(a.getTime()));
-            stmt.setString(5, a.getStatus());
+            stmt.setString(5, a.getConditionNote());
+            stmt.setString(6, a.getStatus());
             return stmt.executeUpdate() > 0;
         }
     }
@@ -64,6 +65,25 @@ public class AppointmentDAO {
         return list;
     }
 
+    public List<Appointment> getByPatientId(int patientId) throws SQLException {
+        List<Appointment> list = new ArrayList<>();
+        String sql = """
+        SELECT a.*, p.name AS patient_name, d.name AS doctor_name
+        FROM appointment a
+        JOIN patient p ON a.patient_id = p.patient_id
+        JOIN doctor  d ON a.doctor_id  = d.doctor_id
+        WHERE a.patient_id = ?
+        ORDER BY a.appointment_date DESC
+        """;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, patientId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        }
+        return list;
+    }
+
     // ── UPDATE STATUS ONLY ───────────────────────────────────
     // Used when marking an appointment Completed or Cancelled
     public boolean updateStatus(int appointmentId, String status) throws SQLException {
@@ -78,15 +98,16 @@ public class AppointmentDAO {
 
     // ── UPDATE FULL ──────────────────────────────────────────
     public boolean updateAppointment(Appointment a) throws SQLException {
-        String sql = "UPDATE appointment SET patient_id=?, doctor_id=?, appointment_date=?, appointment_time=?, status=? WHERE appointment_id=?";
+        String sql = "UPDATE appointment SET patient_id=?, doctor_id=?, appointment_date=?, appointment_time=?, condition_note=?, status=? WHERE appointment_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, a.getPatientId());
             stmt.setInt(2, a.getDoctorId());
             stmt.setDate(3, Date.valueOf(a.getDate()));
             stmt.setTime(4, Time.valueOf(a.getTime()));
-            stmt.setString(5, a.getStatus());
-            stmt.setInt(6, a.getAppointmentId());
+            stmt.setString(5, a.getConditionNote());
+            stmt.setString(6, a.getStatus());
+            stmt.setInt(7, a.getAppointmentId());
             return stmt.executeUpdate() > 0;
         }
     }
@@ -121,6 +142,7 @@ public class AppointmentDAO {
                 rs.getString("doctor_name"),
                 rs.getDate("appointment_date").toLocalDate(),
                 rs.getTime("appointment_time").toLocalTime(),
+                rs.getString("condition_note"),
                 rs.getString("status")
         );
     }
