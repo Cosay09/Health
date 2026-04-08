@@ -121,7 +121,7 @@ public class DashboardController implements Initializable {
 
             Stage stage = (Stage) contentArea.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("HMS — Login");
+            stage.setTitle("HealthPlus+");
         } catch (IOException e) {
             e.printStackTrace();
         }
