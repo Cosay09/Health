@@ -1,62 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
+<VBox fx:id="root"
+      xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.hms.controller.ReportsController"
-      spacing="24">
+      spacing="20"
+      style="-fx-background-color: #f5f6fa;">
 
     <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
+        <Insets top="25" right="25" bottom="25" left="25"/>
     </padding>
 
+    <!-- Header -->
     <Label text="Reports" styleClass="page-title"/>
-    <Label text="Generate and download PDF reports for any module."
+    <Label text="Generate and download PDF reports for different modules."
            styleClass="page-subtitle"/>
 
-    <!-- Report cards in a grid -->
-    <GridPane hgap="16" vgap="16">
+    <!-- Responsive Tile Layout -->
+    <TilePane hgap="20" vgap="20" prefColumns="3">
 
-        <VBox styleClass="stat-card" spacing="8"
-              GridPane.rowIndex="0" GridPane.columnIndex="0">
+        <!-- Appointment -->
+        <VBox styleClass="stat-card" spacing="6" prefWidth="240">
             <Label text="Appointment Report" styleClass="stat-label"/>
             <Label text="All appointments with status" styleClass="page-subtitle"/>
             <Button text="Generate PDF"
+                    maxWidth="Infinity"
                     onAction="#generateAppointmentReport"
                     styleClass="btn-primary"/>
         </VBox>
 
-        <VBox styleClass="stat-card" spacing="8"
-              GridPane.rowIndex="0" GridPane.columnIndex="1">
+        <!-- Doctor -->
+        <VBox styleClass="stat-card" spacing="6" prefWidth="240">
             <Label text="Doctor Report" styleClass="stat-label"/>
             <Label text="All doctors and availability" styleClass="page-subtitle"/>
             <Button text="Generate PDF"
+                    maxWidth="Infinity"
                     onAction="#generateDoctorReport"
                     styleClass="btn-primary"/>
         </VBox>
 
-        <VBox styleClass="stat-card" spacing="8"
-              GridPane.rowIndex="1" GridPane.columnIndex="0">
+        <!-- Billing -->
+        <VBox styleClass="stat-card" spacing="6" prefWidth="240">
             <Label text="Billing Report" styleClass="stat-label"/>
             <Label text="All bills with totals and status" styleClass="page-subtitle"/>
             <Button text="Generate PDF"
+                    maxWidth="Infinity"
                     onAction="#generateBillingReport"
                     styleClass="btn-primary"/>
         </VBox>
 
-        <VBox styleClass="stat-card" spacing="8"
-              GridPane.rowIndex="1" GridPane.columnIndex="1">
+        <!-- Lab -->
+        <VBox styleClass="stat-card" spacing="6" prefWidth="240">
             <Label text="Lab Test Report" styleClass="stat-label"/>
             <Label text="All tests with results" styleClass="page-subtitle"/>
             <Button text="Generate PDF"
+                    maxWidth="Infinity"
                     onAction="#generateLabReport"
                     styleClass="btn-primary"/>
         </VBox>
 
-    </GridPane>
+        <!-- Financial -->
+        <VBox styleClass="stat-card" spacing="6" prefWidth="240">
+            <Label text="Financial Report" styleClass="stat-label"/>
+            <Label text="Revenue summary and monthly breakdown" styleClass="page-subtitle"/>
+            <Button text="Generate PDF"
+                    maxWidth="Infinity"
+                    onAction="#generateFinancialReport"
+                    styleClass="btn-primary"/>
+        </VBox>
+
+    </TilePane>
 
 </VBox>
