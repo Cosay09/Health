@@ -75,7 +75,7 @@ public class AppointmentController implements Initializable {
 
         // Actions: Edit + Complete + Cancel
         colActions.setCellFactory(col -> new TableCell<>() {
-            private final Button editBtn     = new Button("Edit");
+            private final Button editBtn     = new Button("Reschedule");
             private final Button completeBtn = new Button("Complete");
             private final Button cancelBtn   = new Button("Cancel");
             private final HBox   box         = new HBox(4, editBtn, completeBtn, cancelBtn);
@@ -106,9 +106,18 @@ public class AppointmentController implements Initializable {
 
                 // Disable status buttons if already resolved
                 Appointment a = getTableView().getItems().get(getIndex());
-                boolean resolved = !a.getStatus().equals("Scheduled");
-                completeBtn.setDisable(resolved);
-                cancelBtn.setDisable(resolved);
+                String status = a.getStatus();
+
+//              Safe check (avoid null crash)
+                boolean isScheduled = "Scheduled".equals(status);
+                boolean isCancelled = "Cancelled".equals(status);
+
+//              Disable Complete & Cancel if not Scheduled
+                completeBtn.setDisable(!isScheduled);
+                cancelBtn.setDisable(!isScheduled);
+
+//              Disable Reschedule ONLY if Cancelled
+                editBtn.setDisable(isCancelled);
 
                 setGraphic(box);
             }
