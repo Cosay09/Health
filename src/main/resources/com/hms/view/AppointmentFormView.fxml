@@ -41,6 +41,18 @@
                    GridPane.rowIndex="3" GridPane.columnIndex="1"
                    promptText="HH:MM  (e.g. 09:30)" prefWidth="240"/>
 
+        <Label text="Condition / Reason"
+               GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="form-label"/>
+        <TextField fx:id="conditionField"
+                   GridPane.rowIndex="4" GridPane.columnIndex="1"
+                   promptText="e.g. Fever, Chest pain, Checkup" prefWidth="240"/>
+
+        <Label text="Filter doctors by"
+               GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="form-label"/>
+        <ComboBox fx:id="specializationFilter"
+                  GridPane.rowIndex="5" GridPane.columnIndex="1"
+                  prefWidth="240" promptText="All specializations"/>
+
         <Label text="Status"
                GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="form-label"/>
         <ComboBox fx:id="statusCombo"
