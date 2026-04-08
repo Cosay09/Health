@@ -9,8 +9,8 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.hms.controller.DashboardController"
-            prefWidth="900"
-            prefHeight="600">
+            prefWidth="1200"
+            prefHeight="720">
 
     <!-- TOP BAR -->
     <top>
