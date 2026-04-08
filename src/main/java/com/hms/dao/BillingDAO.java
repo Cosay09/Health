@@ -103,4 +103,22 @@ public class BillingDAO {
                 rs.getTimestamp("created_at").toLocalDateTime()
         );
     }
+
+    public List<Billing> getByPatientId(int patientId) throws SQLException {
+        List<Billing> list = new ArrayList<>();
+        String sql = """
+        SELECT b.*, p.name AS patient_name
+        FROM billing b
+        JOIN patient p ON b.patient_id = p.patient_id
+        WHERE b.patient_id = ?
+        ORDER BY b.created_at DESC
+        """;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, patientId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        }
+        return list;
+    }
 }

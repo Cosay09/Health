@@ -99,4 +99,22 @@ public class LabTestDAO {
                 rs.getTimestamp("ordered_at").toLocalDateTime()
         );
     }
+
+    public List<LabTest> getByPatientId(int patientId) throws SQLException {
+        List<LabTest> list = new ArrayList<>();
+        String sql = """
+        SELECT l.*, p.name AS patient_name
+        FROM lab_test l
+        JOIN patient p ON l.patient_id = p.patient_id
+        WHERE l.patient_id = ?
+        ORDER BY l.ordered_at DESC
+        """;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, patientId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        }
+        return list;
+    }
 }

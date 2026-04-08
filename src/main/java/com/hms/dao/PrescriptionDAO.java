@@ -136,6 +136,26 @@ public class PrescriptionDAO {
         }
     }
 
+    public List<Prescription> getByPatientId(int patientId) throws SQLException {
+        List<Prescription> list = new ArrayList<>();
+        String sql = """
+        SELECT pr.*, d.name AS doctor_name, p.name AS patient_name
+        FROM prescription pr
+        JOIN doctor d      ON pr.doctor_id      = d.doctor_id
+        JOIN appointment a ON pr.appointment_id = a.appointment_id
+        JOIN patient p     ON a.patient_id      = p.patient_id
+        WHERE a.patient_id = ?
+        ORDER BY pr.prescription_date DESC
+        """;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, patientId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        }
+        return list;
+    }
+
     private Prescription mapRow(ResultSet rs) throws SQLException {
         return new Prescription(
                 rs.getInt("prescription_id"),
