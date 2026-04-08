@@ -63,16 +63,23 @@ public class PatientController implements Initializable {
         colActions.setCellFactory(col -> new TableCell<>() {
             private final Button editBtn   = new Button("Edit");
             private final Button deleteBtn = new Button("Delete");
-            private final HBox   box       = new HBox(6, editBtn, deleteBtn);
+            private final Button historyBtn = new Button("History");
+            private final HBox   box       = new HBox(6, editBtn, historyBtn, deleteBtn);
 
             {
                 // This block runs once when the cell is created
                 editBtn.getStyleClass().add("btn-edit");
+                historyBtn.getStyleClass().add("btn-complete");
                 deleteBtn.getStyleClass().add("btn-delete");
 
                 editBtn.setOnAction(e -> {
                     Patient p = getTableView().getItems().get(getIndex());
                     handleEdit(p);
+                });
+
+                historyBtn.setOnAction(e -> {
+                    Patient p = getTableView().getItems().get(getIndex());
+                    openHistory(p);
                 });
 
                 deleteBtn.setOnAction(e -> {
@@ -174,6 +181,27 @@ public class PatientController implements Initializable {
             // After dialog closes, refresh the table
             loadAllPatients();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openHistory(Patient patient) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/hms/view/PatientHistoryView.fxml")
+            );
+            Stage stage = new Stage();
+            stage.setTitle("Patient History — " + patient.getName());
+            stage.setScene(new Scene(loader.load()));
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            PatientHistoryController hc = loader.getController();
+            hc.setPatient(patient);
+
+            stage.setWidth(800);
+            stage.setHeight(600);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
