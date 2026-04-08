@@ -17,6 +17,7 @@ public class ReportsController {
     @FXML private void generateDoctorReport()      { generate("Doctor_Report",      "doctor"); }
     @FXML private void generateBillingReport()     { generate("Billing_Report",     "billing"); }
     @FXML private void generateLabReport()         { generate("Lab_Report",         "lab"); }
+    @FXML private void generateFinancialReport()   { generate("Financial_Report",   "financial"); }
 
     private void generate(String defaultName, String type) {
         FileChooser chooser = new FileChooser();
@@ -36,6 +37,7 @@ public class ReportsController {
                     case "doctor"      -> ReportGenerator.generateDoctorReport(file.getAbsolutePath());
                     case "billing"     -> ReportGenerator.generateBillingReport(file.getAbsolutePath());
                     case "lab"         -> ReportGenerator.generateLabReport(file.getAbsolutePath());
+                    case "financial"   -> ReportGenerator.generateFinancialReport(file.getAbsolutePath());
                 }
                 new Alert(Alert.AlertType.INFORMATION,
                         "Report saved:\n" + file.getAbsolutePath()).showAndWait();
