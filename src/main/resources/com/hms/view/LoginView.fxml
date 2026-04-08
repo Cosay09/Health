@@ -21,7 +21,7 @@
     </padding>
 
     <!-- Title -->
-    <Label text="Hospital Management System"
+    <Label text="HealthPlus+"
            styleClass="title-label"/>
 
     <Label text="Sign in to continue"
