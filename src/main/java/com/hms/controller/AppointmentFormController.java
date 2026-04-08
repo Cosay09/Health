@@ -28,6 +28,9 @@ public class AppointmentFormController implements Initializable {
     @FXML private TextField          timeField;
     @FXML private ComboBox<String>   statusCombo;
     @FXML private Label              errorLabel;
+    @FXML private TextField conditionField;
+    @FXML private ComboBox<String> specializationFilter;
+
 
     private final AppointmentDAO appointmentDAO = new AppointmentDAO();
     private Appointment existingAppointment = null;
@@ -40,6 +43,7 @@ public class AppointmentFormController implements Initializable {
         statusCombo.setValue("Scheduled");
         loadPatients();
         loadDoctors();
+        loadSpecializations();
     }
 
     // Populates the patient ComboBox from DB
@@ -88,6 +92,7 @@ public class AppointmentFormController implements Initializable {
             datePicker.setValue(appointment.getDate());
             timeField.setText(appointment.getTime().toString());
             statusCombo.setValue(appointment.getStatus());
+            conditionField.setText(appointment.getConditionNote());
 
             // Pre-select the right patient in the ComboBox
             patientCombo.getItems().stream()
@@ -100,6 +105,40 @@ public class AppointmentFormController implements Initializable {
                     .filter(d -> d.getDoctorId() == appointment.getDoctorId())
                     .findFirst()
                     .ifPresent(doctorCombo::setValue);
+        }
+    }
+
+    private void loadSpecializations() {
+        try {
+            List<Doctor> all = new DoctorDAO().getAvailableDoctors();
+            List<String> specs = all.stream()
+                    .map(Doctor::getSpecialization)
+                    .distinct()
+                    .sorted()
+                    .collect(java.util.stream.Collectors.toList());
+            specs.add(0, "All");
+            specializationFilter.setItems(FXCollections.observableArrayList(specs));
+            specializationFilter.setValue("All");
+
+            // When specialization changes, re-filter the doctor list
+            specializationFilter.setOnAction(e -> filterDoctors());
+        } catch (Exception e) {
+            showError("Could not load specializations.");
+        }
+    }
+
+    private void filterDoctors() {
+        String selected = specializationFilter.getValue();
+        try {
+            List<Doctor> doctors = new DoctorDAO().getAvailableDoctors();
+            if (selected != null && !selected.equals("All")) {
+                doctors = doctors.stream()
+                        .filter(d -> d.getSpecialization().equals(selected))
+                        .collect(java.util.stream.Collectors.toList());
+            }
+            doctorCombo.setItems(FXCollections.observableArrayList(doctors));
+        } catch (Exception e) {
+            showError("Could not filter doctors.");
         }
     }
 
@@ -133,7 +172,9 @@ public class AppointmentFormController implements Initializable {
                         selectedDoctor.getDoctorId(),
                         selectedPatient.getName(),
                         selectedDoctor.getName(),
-                        date, time, status
+                        date, time, conditionField.getText().trim(),
+                        status
+
                 );
                 appointmentDAO.addAppointment(a);
             } else {
@@ -143,6 +184,7 @@ public class AppointmentFormController implements Initializable {
                 existingAppointment.setDoctorName(selectedDoctor.getName());
                 existingAppointment.setDate(date);
                 existingAppointment.setTime(time);
+                existingAppointment.setConditionNote(conditionField.getText().trim());
                 existingAppointment.setStatus(status);
                 appointmentDAO.updateAppointment(existingAppointment);
             }
