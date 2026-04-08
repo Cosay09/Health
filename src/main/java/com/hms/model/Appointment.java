@@ -14,10 +14,11 @@ public class Appointment {
     private final ObjectProperty<LocalDate> date  = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalTime> time  = new SimpleObjectProperty<>();
     private final StringProperty  status          = new SimpleStringProperty();
+    private final StringProperty conditionNote    = new SimpleStringProperty();
 
     public Appointment(int appointmentId, int patientId, int doctorId,
                        String patientName, String doctorName,
-                       LocalDate date, LocalTime time, String status) {
+                       LocalDate date, LocalTime time, String conditionNote, String status) {
         this.appointmentId.set(appointmentId);
         this.patientId.set(patientId);
         this.doctorId.set(doctorId);
@@ -25,6 +26,7 @@ public class Appointment {
         this.doctorName.set(doctorName);
         this.date.set(date);
         this.time.set(time);
+        this.conditionNote.set(conditionNote);
         this.status.set(status);
     }
 
@@ -35,6 +37,7 @@ public class Appointment {
     public ObjectProperty<LocalDate> dateProperty(){ return date; }
     public ObjectProperty<LocalTime> timeProperty(){ return time; }
     public StringProperty  statusProperty()        { return status; }
+    public StringProperty conditionNoteProperty()  { return conditionNote; }
 
     // Regular getters
     public int       getAppointmentId() { return appointmentId.get(); }
@@ -45,6 +48,7 @@ public class Appointment {
     public LocalDate getDate()          { return date.get(); }
     public LocalTime getTime()          { return time.get(); }
     public String    getStatus()        { return status.get(); }
+    public String getConditionNote() { return conditionNote.get(); }
 
     // Setters
     public void setStatus(String v)        { status.set(v); }
@@ -54,4 +58,5 @@ public class Appointment {
     public void setDoctorId(int v)         { doctorId.set(v); }
     public void setPatientName(String v)   { patientName.set(v); }
     public void setDoctorName(String v)    { doctorName.set(v); }
+    public void setConditionNote(String v) { conditionNote.set(v); }
 }
