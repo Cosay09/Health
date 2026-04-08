@@ -296,3 +296,27 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
+
+/*Report generator*/
+.stat-card {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0.2, 0, 2);
+}
+
+.stat-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0.3, 0, 4);
+}
+
+.btn-primary {
+    -fx-background-color: #533483;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #6c4bb3;
+}
