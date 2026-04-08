@@ -68,6 +68,6 @@ public class LoginController {
 
         Stage stage = (Stage) usernameField.getScene().getWindow();
         stage.setScene(scene);
-        stage.setTitle("HMS — Dashboard");
+        stage.setTitle("HealthPlus+ System");
     }
 }
