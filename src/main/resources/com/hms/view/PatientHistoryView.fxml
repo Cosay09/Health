@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.PatientHistoryController"
+      spacing="16">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <!-- Patient summary -->
+    <HBox alignment="CENTER_LEFT" spacing="16">
+        <VBox spacing="4">
+            <Label fx:id="patientNameLabel" styleClass="page-title"/>
+            <Label fx:id="patientInfoLabel" styleClass="page-subtitle"/>
+        </VBox>
+        <HBox HBox.hgrow="ALWAYS"/>
+        <Button text="Generate Invoice"
+                onAction="#handleGenerateInvoice"
+                styleClass="btn-primary"/>
+    </HBox>
+
+    <TabPane VBox.vgrow="ALWAYS">
+
+        <!-- Tab 1: Appointments -->
+        <Tab text="Appointments" closable="false">
+            <TableView fx:id="appointmentTable">
+                <columns>
+                    <TableColumn fx:id="colApptId"     text="ID"        prefWidth="50"/>
+                    <TableColumn fx:id="colApptDate"   text="Date"      prefWidth="100"/>
+                    <TableColumn fx:id="colApptDoctor" text="Doctor"    prefWidth="160"/>
+                    <TableColumn fx:id="colCondition"  text="Condition" prefWidth="180"/>
+                    <TableColumn fx:id="colApptStatus" text="Status"    prefWidth="100"/>
+                </columns>
+            </TableView>
+        </Tab>
+
+        <!-- Tab 2: Ongoing Treatment -->
+        <Tab text="Ongoing Treatment" closable="false">
+            <VBox spacing="12">
+                <padding><Insets top="12"/></padding>
+                <Label text="Active appointments and pending lab tests"
+                       styleClass="page-subtitle"/>
+                <TableView fx:id="ongoingTable">
+                    <columns>
+                        <TableColumn fx:id="colOngoingType"   text="Type"    prefWidth="120"/>
+                        <TableColumn fx:id="colOngoingDetail" text="Detail"  prefWidth="280"/>
+                        <TableColumn fx:id="colOngoingDate"   text="Date"    prefWidth="120"/>
+                        <TableColumn fx:id="colOngoingStatus" text="Status"  prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+
+        <!-- Tab 3: Prescriptions -->
+        <Tab text="Prescriptions" closable="false">
+            <TableView fx:id="prescriptionTable">
+                <columns>
+                    <TableColumn fx:id="colPresId"     text="ID"     prefWidth="50"/>
+                    <TableColumn fx:id="colPresDate"   text="Date"   prefWidth="100"/>
+                    <TableColumn fx:id="colPresDoctor" text="Doctor" prefWidth="160"/>
+                    <TableColumn fx:id="colPresNote"   text="Notes"  prefWidth="260"/>
+                </columns>
+            </TableView>
+        </Tab>
+
+        <!-- Tab 4: Lab Tests -->
+        <Tab text="Lab Tests" closable="false">
+            <TableView fx:id="labTable">
+                <columns>
+                    <TableColumn fx:id="colLabId"     text="ID"     prefWidth="50"/>
+                    <TableColumn fx:id="colLabTest"   text="Test"   prefWidth="160"/>
+                    <TableColumn fx:id="colLabResult" text="Result" prefWidth="200"/>
+                    <TableColumn fx:id="colLabStatus" text="Status" prefWidth="100"/>
+                    <TableColumn fx:id="colLabDate"   text="Date"   prefWidth="120"/>
+                </columns>
+            </TableView>
+        </Tab>
+
+        <!-- Tab 5: Billing -->
+        <Tab text="Billing" closable="false">
+            <TableView fx:id="billingTable">
+                <columns>
+                    <TableColumn fx:id="colBillId"     text="Bill ID" prefWidth="70"/>
+                    <TableColumn fx:id="colBillAppt"   text="Appt ID" prefWidth="70"/>
+                    <TableColumn fx:id="colBillAmount" text="Amount"  prefWidth="120"/>
+                    <TableColumn fx:id="colBillStatus" text="Status"  prefWidth="100"/>
+                    <TableColumn fx:id="colBillDate"   text="Date"    prefWidth="140"/>
+                </columns>
+            </TableView>
+        </Tab>
+
+    </TabPane>
+
+</VBox>
