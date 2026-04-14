@@ -19,7 +19,7 @@ public class DashboardController implements Initializable {
 
     @FXML private BorderPane contentArea;
     @FXML private Label userInfoLabel;
-
+    @FXML private Button btnDoctorDashboard;
     // Sidebar buttons — we need these to highlight the active one
     @FXML private Button btnDashboard;
     @FXML private Button btnPatients;
@@ -30,7 +30,7 @@ public class DashboardController implements Initializable {
     @FXML private Button btnReports;
     @FXML private Button btnMedicine;
     @FXML private Button btnPrescriptions;
-
+    @FXML private Button btnPharmacy;
     private Button activeButton;
 
     // initialize() runs automatically after the FXML is loaded.
@@ -61,11 +61,14 @@ public class DashboardController implements Initializable {
     @FXML private void loadReports()      { loadView("ReportsView.fxml", btnReports); }
     @FXML private void loadMedicine()     { loadView("MedicineView.fxml",      btnMedicine); }
     @FXML private void loadPrescriptions(){ loadView("PrescriptionView.fxml",  btnPrescriptions); }
+    @FXML private void loadDoctorDashboard() { loadView("DoctorDashboardView.fxml", btnDoctorDashboard);}
+    @FXML private void loadPharmacy( )    { loadView("PharmacyView.fxml", btnPharmacy);}
 
 
 
     // Central loader — all nav methods call this
-    private void loadView(String fxmlFile, Button clickedButton) {
+    private void loadView(String fxmlFile, Button clickedButton)
+    {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/hms/view/" + fxmlFile)
@@ -79,7 +82,8 @@ public class DashboardController implements Initializable {
     }
 
     // Highlights the active nav button and un-highlights the previous one
-    private void setActiveButton(Button button) {
+    private void setActiveButton(Button button)
+    {
         if (activeButton != null) {
             activeButton.getStyleClass().remove("nav-btn-active");
         }
@@ -88,26 +92,57 @@ public class DashboardController implements Initializable {
     }
 
     // Hide nav items based on role
+// Update applyRoleVisibility() — replace the existing method
     private void applyRoleVisibility() {
         String role = SessionManager.getCurrentRole();
 
-        switch (role) {
-            case "LabAssistant" -> {
-                btnPatients.setVisible(false);
-                btnDoctors.setVisible(false);
-                btnBilling.setVisible(false);
-                btnReports.setVisible(false);
-            }
-            case "Doctor" -> {
-                btnBilling.setVisible(false);
-            }
+        // Hide "My Dashboard" for everyone except Doctor
+        btnDoctorDashboard.setVisible(false);
+        btnDoctorDashboard.setManaged(false);
 
+        switch (role) {
+            case "Doctor" -> {
+                // Doctor sees only their own dashboard, patients, appointments,
+                // prescriptions, lab, medicine
+                btnDoctorDashboard.setVisible(true);    btnDoctorDashboard.setManaged(true);
+                btnBilling.setVisible(false);           btnBilling.setManaged(false);
+                btnReports.setVisible(false);           btnReports.setManaged(false);
+                btnPharmacy.setVisible(false);          btnPharmacy.setManaged(false);
+                btnPatients.setVisible(false);          btnPatients.setManaged(false);
+                btnDoctors.setVisible(false);           btnDoctors.setManaged(false);
+                btnMedicine.setVisible(false);          btnMedicine.setManaged(false);
+                btnPrescriptions.setVisible(false);     btnPrescriptions.setManaged(false);
+                // Auto-load their personal dashboard instead of Home
+                loadDoctorDashboard();
+            }
+            case "LabAssistant" -> {
+                btnPatients.setVisible(false);          btnPatients.setManaged(false);
+                btnDoctors.setVisible(false);           btnDoctors.setManaged(false);
+                btnBilling.setVisible(false);           btnBilling.setManaged(false);
+                btnReports.setVisible(false);           btnReports.setManaged(false);
+                btnPharmacy.setVisible(false);          btnPharmacy.setManaged(false);
+
+            }
+            case "Pharmacist" -> {
+                btnPatients.setVisible(false);          btnPatients.setManaged(false);
+                btnDoctors.setVisible(false);           btnDoctors.setManaged(false);
+                btnBilling.setVisible(false);           btnBilling.setManaged(false);
+                btnReports.setVisible(false);           btnReports.setManaged(false);
+                btnAppointments.setVisible(false);      btnAppointments.setManaged(false);
+                btnLab.setVisible(false);               btnLab.setManaged(false);
+            }
+            case "Receptionist" -> {
+                btnPharmacy.setVisible(false);          btnPharmacy.setManaged(false);
+                btnReports.setVisible(false);           btnReports.setManaged(false);
+                btnLab.setVisible(false);               btnLab.setManaged(false);
+            }
             // Admin sees everything — no changes needed
         }
     }
 
     @FXML
-    private void handleLogout() {
+    private void handleLogout()
+    {
         SessionManager.logout();
         try {
             FXMLLoader loader = new FXMLLoader(

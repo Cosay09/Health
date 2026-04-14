@@ -99,4 +99,23 @@ public class PatientDAO {
                 rs.getString("address")
         );
     }
+
+    // All patients who have had at least one appointment with this doctor
+    public List<Patient> getPatientsByDoctorId(int doctorId) throws SQLException {
+        List<Patient> list = new ArrayList<>();
+        String sql = """
+        SELECT DISTINCT p.*
+        FROM patient p
+        JOIN appointment a ON p.patient_id = a.patient_id
+        WHERE a.doctor_id = ?
+        ORDER BY p.name
+        """;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, doctorId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        }
+        return list;
+    }
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.DoctorDashboardController"
+      spacing="16">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label fx:id="welcomeLabel" styleClass="page-title"/>
+        <HBox HBox.hgrow="ALWAYS"/>
+        <Label fx:id="specializationLabel" styleClass="page-subtitle"/>
+    </HBox>
+
+    <TabPane VBox.vgrow="ALWAYS">
+
+        <!-- Tab 1: My Appointments -->
+        <Tab text="My Appointments" closable="false">
+            <VBox spacing="10">
+                <padding><Insets top="12"/></padding>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="apptSearchField"
+                               promptText="Search by patient name..."
+                               prefWidth="260"
+                               onKeyReleased="#handleApptSearch"/>
+                    <ComboBox fx:id="apptStatusFilter"
+                              promptText="Filter by status"
+                              prefWidth="160"
+                              onAction="#handleStatusFilter"/>
+                </HBox>
+                <TableView fx:id="appointmentTable" VBox.vgrow="ALWAYS" prefHeight="300">
+                    <placeholder><Label text="No appointments found."/></placeholder>
+                    <columns>
+                        <TableColumn fx:id="colApptId"     text="ID"        prefWidth="50"/>
+                        <TableColumn fx:id="colApptPatient" text="Patient"  prefWidth="160"/>
+                        <TableColumn fx:id="colApptDate"   text="Date"      prefWidth="100"/>
+                        <TableColumn fx:id="colApptTime"   text="Time"      prefWidth="80"/>
+                        <TableColumn fx:id="colCondition"  text="Condition" prefWidth="180"/>
+                        <TableColumn fx:id="colApptStatus" text="Status"    prefWidth="100"/>
+                        <TableColumn fx:id="colApptActions" text="Actions"  prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+
+        <!-- Tab 2: My Patients -->
+        <Tab text="My Patients" closable="false">
+            <VBox spacing="10">
+                <padding><Insets top="12"/></padding>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="patientSearchField"
+                               promptText="Search by name..."
+                               prefWidth="260"
+                               onKeyReleased="#handlePatientSearch"/>
+                </HBox>
+                <TableView fx:id="patientTable" VBox.vgrow="ALWAYS" prefHeight="300">
+                    <placeholder><Label text="No patients found."/></placeholder>
+                    <columns>
+                        <TableColumn fx:id="colPatId"      text="ID"     prefWidth="50"/>
+                        <TableColumn fx:id="colPatName"    text="Name"   prefWidth="180"/>
+                        <TableColumn fx:id="colPatAge"     text="Age"    prefWidth="60"/>
+                        <TableColumn fx:id="colPatGender"  text="Gender" prefWidth="80"/>
+                        <TableColumn fx:id="colPatPhone"   text="Phone"  prefWidth="130"/>
+                        <TableColumn fx:id="colPatActions" text="Actions" prefWidth="200"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+
+        <!-- Tab 3: My Prescriptions -->
+        <Tab text="Prescriptions I Wrote" closable="false">
+            <VBox spacing="10">
+                <padding><Insets top="12"/></padding>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="presSearchField"
+                               promptText="Search by patient name..."
+                               prefWidth="260"
+                               onKeyReleased="#handlePresSearch"/>
+                    <Button text="+ New Prescription"
+                            onAction="#handleNewPrescription"
+                            styleClass="btn-primary"/>
+                </HBox>
+                <TableView fx:id="prescriptionTable" VBox.vgrow="ALWAYS" prefHeight="300">
+                    <placeholder><Label text="No prescriptions found."/></placeholder>
+                    <columns>
+                        <TableColumn fx:id="colPresId"      text="ID"      prefWidth="50"/>
+                        <TableColumn fx:id="colPresApptId"  text="Appt ID" prefWidth="70"/>
+                        <TableColumn fx:id="colPresPatient" text="Patient" prefWidth="160"/>
+                        <TableColumn fx:id="colPresDate"    text="Date"    prefWidth="100"/>
+                        <TableColumn fx:id="colPresNote"    text="Notes"   prefWidth="200"/>
+                        <TableColumn fx:id="colPresActions" text="Actions" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+
+    </TabPane>
+
+</VBox>

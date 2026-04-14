@@ -7,10 +7,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoctorDAO {
+public class DoctorDAO
+{
 
     // ── CREATE ───────────────────────────────────────────────
-    public boolean addDoctor(Doctor d) throws SQLException {
+    public boolean addDoctor(Doctor d) throws SQLException
+    {
         String sql = "INSERT INTO doctor (name, specialization, phone, available) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -23,7 +25,8 @@ public class DoctorDAO {
     }
 
     // ── READ ALL ─────────────────────────────────────────────
-    public List<Doctor> getAllDoctors() throws SQLException {
+    public List<Doctor> getAllDoctors() throws SQLException
+    {
         List<Doctor> list = new ArrayList<>();
         String sql = "SELECT * FROM doctor ORDER BY name";
         try (Connection conn = DBConnection.getConnection();
@@ -35,7 +38,8 @@ public class DoctorDAO {
     }
 
     // ── READ — search by name or specialization ───────────────
-    public List<Doctor> search(String keyword) throws SQLException {
+    public List<Doctor> search(String keyword) throws SQLException
+    {
         List<Doctor> list = new ArrayList<>();
         String sql = "SELECT * FROM doctor WHERE name LIKE ? OR specialization LIKE ? ORDER BY name";
         try (Connection conn = DBConnection.getConnection();
@@ -50,7 +54,8 @@ public class DoctorDAO {
     }
 
     // ── READ — only available doctors (used by Appointment module later) ──
-    public List<Doctor> getAvailableDoctors() throws SQLException {
+    public List<Doctor> getAvailableDoctors() throws SQLException
+    {
         List<Doctor> list = new ArrayList<>();
         String sql = "SELECT * FROM doctor WHERE available = TRUE ORDER BY name";
         try (Connection conn = DBConnection.getConnection();
@@ -62,7 +67,8 @@ public class DoctorDAO {
     }
 
     // ── UPDATE ───────────────────────────────────────────────
-    public boolean updateDoctor(Doctor d) throws SQLException {
+    public boolean updateDoctor(Doctor d) throws SQLException
+    {
         String sql = "UPDATE doctor SET name=?, specialization=?, phone=?, available=? WHERE doctor_id=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -76,7 +82,8 @@ public class DoctorDAO {
     }
 
     // ── DELETE ───────────────────────────────────────────────
-    public boolean deleteDoctor(int doctorId) throws SQLException {
+    public boolean deleteDoctor(int doctorId) throws SQLException
+    {
         String sql = "DELETE FROM doctor WHERE doctor_id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -86,7 +93,8 @@ public class DoctorDAO {
     }
 
     // ── HELPER ───────────────────────────────────────────────
-    private Doctor mapRow(ResultSet rs) throws SQLException {
+    private Doctor mapRow(ResultSet rs) throws SQLException
+    {
         return new Doctor(
                 rs.getInt("doctor_id"),
                 rs.getString("name"),
@@ -94,5 +102,17 @@ public class DoctorDAO {
                 rs.getString("phone"),
                 rs.getBoolean("available")
         );
+    }
+
+    // Gets the doctor_id for the currently logged-in doctor user
+    public Doctor getDoctorByUserId(int userId) throws SQLException {
+        String sql = "SELECT * FROM doctor WHERE user_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return mapRow(rs);
+        }
+        return null;
     }
 }

@@ -58,14 +58,15 @@ public class MedicineDAO {
     }
 
     // Called automatically when a prescription is dispensed
-    public boolean reduceStock(int medicineId, int quantity) throws SQLException {
+    public boolean reduceStock(Connection conn, int medicineId, int qty) throws SQLException {
         String sql = "UPDATE medicine SET stock = stock - ? WHERE medicine_id = ? AND stock >= ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, quantity);
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, qty);
             stmt.setInt(2, medicineId);
-            stmt.setInt(3, quantity); // prevents negative stock
-            return stmt.executeUpdate() > 0; // returns false if stock insufficient
+            stmt.setInt(3, qty);
+
+            return stmt.executeUpdate() > 0;
         }
     }
 

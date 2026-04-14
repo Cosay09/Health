@@ -180,4 +180,24 @@ public class PrescriptionFormController implements Initializable {
         errorLabel.setText(msg);
         errorLabel.setVisible(true);
     }
+
+    // Called from DoctorDashboardController to pre-fill patient and doctor
+    public void setPreselectedPatientAndDoctor(Patient patient, Doctor doctor) {
+        // Pre-select the doctor and lock it
+        if (doctor != null) {
+            doctorCombo.getItems().stream()
+                    .filter(d -> d.getDoctorId() == doctor.getDoctorId())
+                    .findFirst()
+                    .ifPresent(d -> {
+                        doctorCombo.setValue(d);
+                        doctorCombo.setDisable(true); // doctor can't change who they are
+                    });
+        }
+        // Pre-select the patient if one was passed
+        if (patient != null) {
+            // Patient isn't in prescriptionForm by default — we need to add a patient combo
+            // For now store it and use appointmentId lookup
+            appointmentIdField.setPromptText("Enter appointment ID for " + patient.getName());
+        }
+    }
 }

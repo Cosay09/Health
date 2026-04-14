@@ -1,5 +1,6 @@
 package com.hms.controller;
 
+import com.hms.util.PasswordUtil;
 import com.hms.dao.UserDAO;
 import com.hms.model.User;
 import com.hms.util.SessionManager;
@@ -27,24 +28,21 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
-        // Basic validation — never trust empty input
         if (username.isEmpty() || password.isEmpty()) {
             showError("Please enter both username and password.");
             return;
         }
 
         try {
-            User user = userDAO.findByUsernameAndPassword(username, password);
+            User user = userDAO.findByUsername(username);
 
-            if (user != null) {
-                // Save logged-in user globally so other screens can access it
+            if (user != null && PasswordUtil.verify(password, user.getPasswordHash())) {
                 SessionManager.setCurrentUser(user);
                 loadDashboard();
             } else {
                 showError("Invalid username or password.");
                 passwordField.clear();
             }
-
         } catch (Exception e) {
             showError("Connection error. Please try again.");
             e.printStackTrace();

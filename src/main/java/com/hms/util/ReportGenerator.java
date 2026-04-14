@@ -4,6 +4,8 @@ import com.hms.dao.AppointmentDAO;
 import com.hms.dao.BillingDAO;
 import com.hms.dao.DoctorDAO;
 import com.hms.dao.LabTestDAO;
+import com.hms.model.PharmacySale;
+import com.hms.model.PharmacySaleItem;
 import com.hms.model.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
@@ -421,6 +423,65 @@ public class ReportGenerator {
             alt = !alt;
         }
         doc.add(monthTable);
+
+        addFooter(doc);
+        doc.close();
+    }
+
+    public static void generatePharmacyReceipt(PharmacySale sale, Patient patient,
+                                               Prescription prescription,
+                                               String outputPath) throws Exception {
+        Document doc = new Document(PageSize.A5);
+        PdfWriter.getInstance(doc, new FileOutputStream(outputPath));
+        doc.open();
+
+        addHeader(doc, "Pharmacy Receipt", "Sale ID: " + sale.getSaleId());
+
+        // Patient info
+        PdfPTable info = new PdfPTable(2);
+        info.setWidthPercentage(100);
+        info.setSpacingAfter(12);
+        addInfoRow(info, "Patient",    patient.getName());
+        addInfoRow(info, "Age",        String.valueOf(patient.getAge()));
+        addInfoRow(info, "Date",
+                sale.getSaleDate() != null
+                        ? sale.getSaleDate().toLocalDate().toString()
+                        : LocalDate.now().toString());
+        if (prescription != null) {
+            addInfoRow(info, "Doctor",      "Dr. " + prescription.getDoctorName());
+            addInfoRow(info, "Prescription","# " + prescription.getPrescriptionId());
+        }
+        doc.add(info);
+
+        // Medicine items table
+        doc.add(new Paragraph("Items Dispensed", FONT_LABEL));
+        doc.add(Chunk.NEWLINE);
+
+        PdfPTable table = new PdfPTable(new float[]{3, 1, 2, 2});
+        table.setWidthPercentage(100);
+        addTableHeader(table, "Medicine", "Qty", "Unit Price", "Subtotal");
+
+        boolean alt = false;
+        for (PharmacySaleItem item : sale.getItems()) {
+            BaseColor bg = alt ? COLOR_ROW_ALT : BaseColor.WHITE;
+            addTableRow(table, bg,
+                    item.getMedicineName(),
+                    String.valueOf(item.getQuantity()),
+                    String.format("৳ %.2f", item.getUnitPrice()),
+                    String.format("৳ %.2f", item.getSubtotal())
+            );
+            alt = !alt;
+        }
+        doc.add(table);
+
+        // Total
+        doc.add(Chunk.NEWLINE);
+        PdfPTable totalTable = new PdfPTable(2);
+        totalTable.setWidthPercentage(50);
+        totalTable.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        addInfoRow(totalTable, "Total Paid:",
+                String.format("৳ %.2f", sale.getTotalAmount()));
+        doc.add(totalTable);
 
         addFooter(doc);
         doc.close();

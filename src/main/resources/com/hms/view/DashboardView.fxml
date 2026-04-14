@@ -42,6 +42,11 @@
                     maxWidth="Infinity"
                     onAction="#loadHome"
                     styleClass="nav-btn"/>
+            <Button fx:id="btnDoctorDashboard"
+                    text="My Dashboard"
+                    maxWidth="Infinity"
+                    onAction="#loadDoctorDashboard"
+                    styleClass="nav-btn"/>
             <Button fx:id="btnPatients"
                     text="Patients"
                     maxWidth="Infinity"
@@ -77,7 +82,11 @@
                     maxWidth="Infinity"
                     onAction="#loadMedicine"
                     styleClass="nav-btn"/>
-
+            <Button fx:id="btnPharmacy"
+                    text="Pharmacy"
+                    maxWidth="Infinity"
+                    onAction="#loadPharmacy"
+                    styleClass="nav-btn"/>
             <Button fx:id="btnPrescriptions"
                     text="Prescriptions"
                     maxWidth="Infinity"

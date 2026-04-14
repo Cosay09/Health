@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.PharmacySaleFormController"
+      spacing="16" prefWidth="580">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <Label text="Process Medicine Sale" styleClass="page-title"/>
+
+    <!-- Patient / prescription info (read-only display) -->
+    <GridPane hgap="12" vgap="10">
+        <Label text="Patient"
+               GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+        <Label fx:id="patientLabel"
+               GridPane.rowIndex="0" GridPane.columnIndex="1"
+               style="-fx-font-weight: bold;"/>
+
+        <Label text="Prescription ID"
+               GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+        <Label fx:id="prescriptionLabel"
+               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Doctor"
+               GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+        <Label fx:id="doctorLabel"
+               GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Separator/>
+
+    <!-- Medicine items table — quantities editable -->
+    <Label text="Medicines to Dispense" styleClass="page-subtitle"/>
+
+    <TableView fx:id="itemsTable" prefHeight="200">
+        <columns>
+            <TableColumn fx:id="colMedicine"  text="Medicine"   prefWidth="190"/>
+            <TableColumn fx:id="colDosage"    text="Dosage"     prefWidth="160"/>
+            <TableColumn fx:id="colPrescQty"  text="Prescribed" prefWidth="80"/>
+            <TableColumn fx:id="colSellQty"   text="Sell Qty"   prefWidth="80"/>
+            <TableColumn fx:id="colUnitPrice" text="Unit Price"  prefWidth="90"/>
+            <TableColumn fx:id="colSubtotal"  text="Subtotal"   prefWidth="90"/>
+        </columns>
+    </TableView>
+
+    <!-- Total -->
+    <HBox alignment="CENTER_RIGHT" spacing="12">
+        <Label text="Total Amount:" styleClass="form-label"/>
+        <Label fx:id="totalLabel"
+               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #533483;"/>
+    </HBox>
+
+    <Label fx:id="errorLabel" styleClass="error-label" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel"       onAction="#handleCancel" styleClass="btn-secondary"/>
+        <Button text="Confirm Sale" onAction="#handleSave"   styleClass="btn-primary"/>
+    </HBox>
+
+</VBox>

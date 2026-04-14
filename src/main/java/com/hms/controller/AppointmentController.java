@@ -2,6 +2,7 @@ package com.hms.controller;
 
 import com.hms.dao.AppointmentDAO;
 import com.hms.model.Appointment;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

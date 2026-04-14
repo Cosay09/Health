@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.PharmacyController"
+      spacing="16">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Pharmacy" styleClass="page-title"/>
+        <HBox HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <TabPane VBox.vgrow="ALWAYS">
+
+        <!-- Tab 1: Prescriptions waiting to be dispensed -->
+        <Tab text="Prescriptions" closable="false">
+            <VBox spacing="10">
+                <padding><Insets top="12"/></padding>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="presSearchField"
+                               promptText="Search by patient name or appointment ID..."
+                               prefWidth="320"
+                               onKeyReleased="#handlePresSearch"/>
+                    <Button text="Clear"
+                            onAction="#handleClearPresSearch"
+                            styleClass="btn-secondary"/>
+                </HBox>
+
+                <!-- Top: prescription list -->
+                <Label text="Prescriptions" styleClass="page-subtitle"/>
+                <TableView fx:id="prescriptionTable" prefHeight="220">
+                    <placeholder>
+                        <Label text="Search for a prescription above."/>
+                    </placeholder>
+                    <columns>
+                        <TableColumn fx:id="colPresId"      text="ID"      prefWidth="50"/>
+                        <TableColumn fx:id="colPresApptId"  text="Appt ID" prefWidth="70"/>
+                        <TableColumn fx:id="colPresPatient" text="Patient" prefWidth="160"/>
+                        <TableColumn fx:id="colPresDoctor"  text="Doctor"  prefWidth="150"/>
+                        <TableColumn fx:id="colPresDate"    text="Date"    prefWidth="100"/>
+                        <TableColumn fx:id="colPresActions" text="Actions" prefWidth="160"/>
+                    </columns>
+                </TableView>
+
+                <!-- Bottom: medicine items in selected prescription -->
+                <Label text="Medicines in Selected Prescription"
+                       styleClass="page-subtitle"/>
+                <TableView fx:id="prescriptionItemsTable" prefHeight="160">
+                    <placeholder>
+                        <Label text="Select a prescription above to view its medicines."/>
+                    </placeholder>
+                    <columns>
+                        <TableColumn fx:id="colItemMedicine" text="Medicine"  prefWidth="200"/>
+                        <TableColumn fx:id="colItemDosage"   text="Dosage"    prefWidth="200"/>
+                        <TableColumn fx:id="colItemQty"      text="Qty"       prefWidth="60"/>
+                        <TableColumn fx:id="colItemPrice"    text="Unit Price" prefWidth="100"/>
+                        <TableColumn fx:id="colItemSubtotal" text="Subtotal"  prefWidth="100"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
+        </Tab>
+
+        <!-- Tab 2: Sales history -->
+        <Tab text="Sales History" closable="false">
+            <VBox spacing="10">
+                <padding><Insets top="12"/></padding>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="saleSearchField"
+                               promptText="Search by patient name..."
+                               prefWidth="280"
+                               onKeyReleased="#handleSaleSearch"/>
+                </HBox>
+                <TableView fx:id="salesTable" VBox.vgrow="ALWAYS">
+                    <placeholder><Label text="No sales found."/></placeholder>
+                    <columns>
+                        <TableColumn fx:id="colSaleId"      text="Sale ID" prefWidth="70"/>
+                        <TableColumn fx:id="colSalePatient" text="Patient" prefWidth="180"/>
+                        <TableColumn fx:id="colSaleAmount"  text="Amount"  prefWidth="110"/>
+                        <TableColumn fx:id="colSaleDate"    text="Date"    prefWidth="150"/>
+                        <TableColumn fx:id="colSaleActions" text="Actions" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </Tab>
+
+    </TabPane>
+
+</VBox>

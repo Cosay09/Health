@@ -8,10 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrescriptionDAO {
-
+public class PrescriptionDAO
+{
     // ── CREATE — saves header + all items in one transaction ─
-    public boolean addPrescription(Prescription p) throws SQLException {
+    public boolean addPrescription(Prescription p) throws SQLException
+    {
         Connection conn = DBConnection.getConnection();
         conn.setAutoCommit(false); // start transaction
 
@@ -58,7 +59,8 @@ public class PrescriptionDAO {
     }
 
     // ── READ ALL ─────────────────────────────────────────────
-    public List<Prescription> getAllPrescriptions() throws SQLException {
+    public List<Prescription> getAllPrescriptions() throws SQLException
+    {
         List<Prescription> list = new ArrayList<>();
         String sql = """
             SELECT pr.*, d.name AS doctor_name, p.name AS patient_name
@@ -77,7 +79,8 @@ public class PrescriptionDAO {
     }
 
     // ── READ items for one prescription ──────────────────────
-    public List<PrescriptionItem> getItems(int prescriptionId) throws SQLException {
+    public List<PrescriptionItem> getItems(int prescriptionId) throws SQLException
+    {
         List<PrescriptionItem> items = new ArrayList<>();
         String sql = """
             SELECT pm.*, m.name AS medicine_name
@@ -102,7 +105,8 @@ public class PrescriptionDAO {
     }
 
     // ── SEARCH ───────────────────────────────────────────────
-    public List<Prescription> search(String keyword) throws SQLException {
+    public List<Prescription> search(String keyword) throws SQLException
+    {
         List<Prescription> list = new ArrayList<>();
         String sql = """
             SELECT pr.*, d.name AS doctor_name, p.name AS patient_name
@@ -125,7 +129,8 @@ public class PrescriptionDAO {
     }
 
     // ── DELETE ───────────────────────────────────────────────
-    public boolean deletePrescription(int prescriptionId) throws SQLException {
+    public boolean deletePrescription(int prescriptionId) throws SQLException
+    {
         // Junction table rows delete automatically via ON DELETE CASCADE
         // Make sure your FK has ON DELETE CASCADE — or delete items first
         String sql = "DELETE FROM prescription WHERE prescription_id = ?";
@@ -156,7 +161,8 @@ public class PrescriptionDAO {
         return list;
     }
 
-    private Prescription mapRow(ResultSet rs) throws SQLException {
+    private Prescription mapRow(ResultSet rs) throws SQLException
+    {
         return new Prescription(
                 rs.getInt("prescription_id"),
                 rs.getInt("appointment_id"),
@@ -166,5 +172,50 @@ public class PrescriptionDAO {
                 rs.getDate("prescription_date").toLocalDate(),
                 rs.getString("note")
         );
+    }
+
+    // All prescriptions written by a specific doctor
+    public List<Prescription> getByDoctorId(int doctorId) throws SQLException
+    {
+        List<Prescription> list = new ArrayList<>();
+        String sql = """
+        SELECT pr.*, d.name AS doctor_name, p.name AS patient_name
+        FROM prescription pr
+        JOIN doctor d      ON pr.doctor_id      = d.doctor_id
+        JOIN appointment a ON pr.appointment_id = a.appointment_id
+        JOIN patient p     ON a.patient_id      = p.patient_id
+        WHERE pr.doctor_id = ?
+        ORDER BY pr.prescription_date DESC
+        """;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, doctorId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        }
+        return list;
+    }
+
+    // Pharmacy search — by patient name OR appointment ID
+    public List<Prescription> searchForPharmacy(String keyword) throws SQLException {
+        List<Prescription> list = new ArrayList<>();
+        String sql = """
+        SELECT pr.*, d.name AS doctor_name, p.name AS patient_name
+        FROM prescription pr
+        JOIN doctor d      ON pr.doctor_id      = d.doctor_id
+        JOIN appointment a ON pr.appointment_id = a.appointment_id
+        JOIN patient p     ON a.patient_id      = p.patient_id
+        WHERE p.name LIKE ? OR CAST(a.appointment_id AS CHAR) LIKE ?
+        ORDER BY pr.prescription_date DESC
+        """;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            String kw = "%" + keyword + "%";
+            stmt.setString(1, kw);
+            stmt.setString(2, kw);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) list.add(mapRow(rs));
+        }
+        return list;
     }
 }

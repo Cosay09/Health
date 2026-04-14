@@ -8,7 +8,7 @@ public class DBConnection {
 
     private static final String URL      = "jdbc:mysql://localhost:3306/hms_db";
     private static final String USER     = "root";
-    private static final String PASSWORD = "1234";
+    private static final String PASSWORD = "A2B2azxy4920";
 
     private static Connection connection = null;
 

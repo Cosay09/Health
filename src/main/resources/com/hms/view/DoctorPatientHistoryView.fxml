@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hms.controller.DoctorPatientHistoryController"
+      spacing="16">
+
+    <padding>
+        <Insets top="24" right="24" bottom="24" left="24"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="16">
+        <VBox spacing="4">
+            <Label fx:id="patientNameLabel" styleClass="page-title"/>
+            <Label fx:id="patientInfoLabel" styleClass="page-subtitle"/>
+        </VBox>
+    </HBox>
+
+    <Label text="Showing history under your care only"
+           styleClass="page-subtitle"
+           style="-fx-text-fill: #533483; -fx-font-style: italic;"/>
+
+    <TabPane VBox.vgrow="ALWAYS">
+
+        <Tab text="Appointments" closable="false">
+            <TableView fx:id="appointmentTable">
+                <columns>
+                    <TableColumn fx:id="colApptId"     text="ID"        prefWidth="50"/>
+                    <TableColumn fx:id="colApptDate"   text="Date"      prefWidth="100"/>
+                    <TableColumn fx:id="colApptTime"   text="Time"      prefWidth="80"/>
+                    <TableColumn fx:id="colCondition"  text="Condition" prefWidth="200"/>
+                    <TableColumn fx:id="colApptStatus" text="Status"    prefWidth="100"/>
+                </columns>
+            </TableView>
+        </Tab>
+
+        <Tab text="Prescriptions" closable="false">
+            <TableView fx:id="prescriptionTable">
+                <columns>
+                    <TableColumn fx:id="colPresId"    text="ID"      prefWidth="50"/>
+                    <TableColumn fx:id="colPresDate"  text="Date"    prefWidth="100"/>
+                    <TableColumn fx:id="colPresNote"  text="Notes"   prefWidth="300"/>
+                </columns>
+            </TableView>
+        </Tab>
+
+        <Tab text="Lab Tests" closable="false">
+            <TableView fx:id="labTable">
+                <columns>
+                    <TableColumn fx:id="colLabTest"   text="Test"    prefWidth="160"/>
+                    <TableColumn fx:id="colLabResult" text="Result"  prefWidth="200"/>
+                    <TableColumn fx:id="colLabStatus" text="Status"  prefWidth="100"/>
+                    <TableColumn fx:id="colLabDate"   text="Date"    prefWidth="120"/>
+                </columns>
+            </TableView>
+        </Tab>
+
+    </TabPane>
+
+</VBox>
