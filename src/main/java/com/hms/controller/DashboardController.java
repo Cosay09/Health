@@ -121,7 +121,9 @@ public class DashboardController implements Initializable {
                 btnBilling.setVisible(false);           btnBilling.setManaged(false);
                 btnReports.setVisible(false);           btnReports.setManaged(false);
                 btnPharmacy.setVisible(false);          btnPharmacy.setManaged(false);
-
+                btnAppointments.setVisible(false);      btnAppointments.setManaged(false);
+                btnMedicine.setVisible(false);          btnMedicine.setManaged(false);
+                btnPrescriptions.setVisible(false);     btnPrescriptions.setManaged(false);
             }
             case "Pharmacist" -> {
                 btnPatients.setVisible(false);          btnPatients.setManaged(false);
@@ -135,6 +137,8 @@ public class DashboardController implements Initializable {
                 btnPharmacy.setVisible(false);          btnPharmacy.setManaged(false);
                 btnReports.setVisible(false);           btnReports.setManaged(false);
                 btnLab.setVisible(false);               btnLab.setManaged(false);
+                btnMedicine.setVisible(false);          btnMedicine.setManaged(false);
+                btnPrescriptions.setVisible(false);     btnPrescriptions.setManaged(false);
             }
             // Admin sees everything — no changes needed
         }

@@ -41,7 +41,7 @@
                    GridPane.rowIndex="3" GridPane.columnIndex="1"
                    promptText="HH:MM  (e.g. 09:30)" prefWidth="240"/>
 
-        <Label text="Condition / Reason"
+        <Label text=""
                GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="form-label"/>
         <TextField fx:id="conditionField"
                    GridPane.rowIndex="4" GridPane.columnIndex="1"

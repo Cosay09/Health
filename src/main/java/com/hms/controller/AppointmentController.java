@@ -179,7 +179,6 @@ public class AppointmentController implements Initializable {
             e.printStackTrace();
         }
     }
-
     private void showAlert(Alert.AlertType type, String msg) {
         new Alert(type, msg).showAndWait();
     }
